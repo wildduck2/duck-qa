@@ -8,7 +8,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import * as React from 'react'
 import { Toaster } from '~/components/ui/sonner'
 import { ThemeProvider } from '~/components/ui/theme-provider'
-import appCss from '~/styles/app.css?url'
+import appCss from '~/styles/globals.css?url'
 import { seo } from '~/utils/seo'
 
 export const Route = createRootRoute({

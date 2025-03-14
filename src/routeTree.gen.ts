@@ -8,23 +8,24 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TermsImport } from './routes/terms'
-import { Route as ChatImport } from './routes/chat'
 import { Route as IndexImport } from './routes/index'
+import { Route as ChatChatImport } from './routes/chat/_chat'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as AuthSigninImport } from './routes/auth/signin'
 import { Route as AuthForgotPasswordImport } from './routes/auth/forgot-password'
+import { Route as ChatChatIndexImport } from './routes/chat/_chat.index'
+
+// Create Virtual Routes
+
+const ChatImport = createFileRoute('/chat')()
 
 // Create/Update Routes
-
-const TermsRoute = TermsImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ChatRoute = ChatImport.update({
   id: '/chat',
@@ -32,10 +33,21 @@ const ChatRoute = ChatImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const TermsRoute = TermsImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ChatChatRoute = ChatChatImport.update({
+  id: '/_chat',
+  getParentRoute: () => ChatRoute,
 } as any)
 
 const AuthSignupRoute = AuthSignupImport.update({
@@ -56,6 +68,12 @@ const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ChatChatIndexRoute = ChatChatIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ChatChatRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -65,13 +83,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatImport
       parentRoute: typeof rootRoute
     }
     '/terms': {
@@ -102,83 +113,132 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupImport
       parentRoute: typeof rootRoute
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatImport
+      parentRoute: typeof rootRoute
+    }
+    '/chat/_chat': {
+      id: '/chat/_chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatChatImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/_chat/': {
+      id: '/chat/_chat/'
+      path: '/'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof ChatChatIndexImport
+      parentRoute: typeof ChatChatImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface ChatChatRouteChildren {
+  ChatChatIndexRoute: typeof ChatChatIndexRoute
+}
+
+const ChatChatRouteChildren: ChatChatRouteChildren = {
+  ChatChatIndexRoute: ChatChatIndexRoute,
+}
+
+const ChatChatRouteWithChildren = ChatChatRoute._addFileChildren(
+  ChatChatRouteChildren,
+)
+
+interface ChatRouteChildren {
+  ChatChatRoute: typeof ChatChatRouteWithChildren
+}
+
+const ChatRouteChildren: ChatRouteChildren = {
+  ChatChatRoute: ChatChatRouteWithChildren,
+}
+
+const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/chat': typeof ChatChatRouteWithChildren
+  '/chat/': typeof ChatChatIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/chat': typeof ChatChatIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/chat/_chat': typeof ChatChatRouteWithChildren
+  '/chat/_chat/': typeof ChatChatIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/chat'
     | '/terms'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
+    | '/chat'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/chat'
     | '/terms'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
+    | '/chat'
   id:
     | '__root__'
     | '/'
-    | '/chat'
     | '/terms'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
+    | '/chat'
+    | '/chat/_chat'
+    | '/chat/_chat/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChatRoute: typeof ChatRoute
   TermsRoute: typeof TermsRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  ChatRoute: typeof ChatRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChatRoute: ChatRoute,
   TermsRoute: TermsRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
+  ChatRoute: ChatRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -192,18 +252,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/chat",
         "/terms",
         "/auth/forgot-password",
         "/auth/signin",
-        "/auth/signup"
+        "/auth/signup",
+        "/chat"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/chat": {
-      "filePath": "chat.tsx"
     },
     "/terms": {
       "filePath": "terms.tsx"
@@ -216,6 +273,23 @@ export const routeTree = rootRoute
     },
     "/auth/signup": {
       "filePath": "auth/signup.tsx"
+    },
+    "/chat": {
+      "filePath": "chat",
+      "children": [
+        "/chat/_chat"
+      ]
+    },
+    "/chat/_chat": {
+      "filePath": "chat/_chat.tsx",
+      "parent": "/chat",
+      "children": [
+        "/chat/_chat/"
+      ]
+    },
+    "/chat/_chat/": {
+      "filePath": "chat/_chat.index.tsx",
+      "parent": "/chat/_chat"
     }
   }
 }
