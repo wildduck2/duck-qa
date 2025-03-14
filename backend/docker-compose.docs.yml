@@ -1,0 +1,16 @@
+services:
+  docs:
+    image: student_eye_local_docs
+    container_name: student_eye_local_docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./student_eye:/app/student_eye:z
+    ports:
+      - '9000:9000'
+    command: /start-docs
