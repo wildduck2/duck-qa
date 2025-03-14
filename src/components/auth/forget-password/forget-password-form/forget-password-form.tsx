@@ -41,7 +41,9 @@ export function ForgotPasswordForm() {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(submitForgetPasswordForm)}
+          onSubmit={form.handleSubmit((_) =>
+            submitForgetPasswordForm({ formData: _ }),
+          )}
           className="grid gap-6"
         >
           <FormField

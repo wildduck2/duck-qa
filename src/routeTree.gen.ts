@@ -17,7 +17,6 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as AuthSigninImport } from './routes/auth/signin'
 import { Route as AuthForgotPasswordImport } from './routes/auth/forgot-password'
-import { Route as AuthForgetPasswordImport } from './routes/auth/forget-password'
 
 // Create/Update Routes
 
@@ -57,12 +56,6 @@ const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthForgetPasswordRoute = AuthForgetPasswordImport.update({
-  id: '/auth/forget-password',
-  path: '/auth/forget-password',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -86,13 +79,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsImport
-      parentRoute: typeof rootRoute
-    }
-    '/auth/forget-password': {
-      id: '/auth/forget-password'
-      path: '/auth/forget-password'
-      fullPath: '/auth/forget-password'
-      preLoaderRoute: typeof AuthForgetPasswordImport
       parentRoute: typeof rootRoute
     }
     '/auth/forgot-password': {
@@ -125,7 +111,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
-  '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -135,7 +120,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
-  '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -146,7 +130,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
-  '/auth/forget-password': typeof AuthForgetPasswordRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -158,7 +141,6 @@ export interface FileRouteTypes {
     | '/'
     | '/chat'
     | '/terms'
-    | '/auth/forget-password'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
@@ -167,7 +149,6 @@ export interface FileRouteTypes {
     | '/'
     | '/chat'
     | '/terms'
-    | '/auth/forget-password'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
@@ -176,7 +157,6 @@ export interface FileRouteTypes {
     | '/'
     | '/chat'
     | '/terms'
-    | '/auth/forget-password'
     | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
@@ -187,7 +167,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChatRoute: typeof ChatRoute
   TermsRoute: typeof TermsRoute
-  AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
@@ -197,7 +176,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChatRoute: ChatRoute,
   TermsRoute: TermsRoute,
-  AuthForgetPasswordRoute: AuthForgetPasswordRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
@@ -216,7 +194,6 @@ export const routeTree = rootRoute
         "/",
         "/chat",
         "/terms",
-        "/auth/forget-password",
         "/auth/forgot-password",
         "/auth/signin",
         "/auth/signup"
@@ -230,9 +207,6 @@ export const routeTree = rootRoute
     },
     "/terms": {
       "filePath": "terms.tsx"
-    },
-    "/auth/forget-password": {
-      "filePath": "auth/forget-password.tsx"
     },
     "/auth/forgot-password": {
       "filePath": "auth/forgot-password.tsx"

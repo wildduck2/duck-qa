@@ -2,16 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 import { Ball, Paddle, Pixel } from './propmpting.types'
-import {
-  BACKGROUND_COLOR,
-  BALL_COLOR,
-  COLOR,
-  HIT_COLOR,
-  LETTER_SPACING,
-  PADDLE_COLOR,
-  PIXEL_MAP,
-  WORD_SPACING,
-} from './propmpting.constants'
 import { drawGame, initializeGame, updateGame } from './propmpting.libs'
 
 export function Prompting() {

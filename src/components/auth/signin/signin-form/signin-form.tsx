@@ -40,7 +40,7 @@ export function SigninForm() {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(submitSigninForm)}
+          onSubmit={form.handleSubmit((_) => submitSigninForm({ formData: _ }))}
           className="grid gap-6"
         >
           <FormField

@@ -42,7 +42,7 @@ export function SignupForm() {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(submitSignupForm)}
+          onSubmit={form.handleSubmit((_) => submitSignupForm({ formData: _ }))}
           className="grid gap-6"
         >
           <FormField

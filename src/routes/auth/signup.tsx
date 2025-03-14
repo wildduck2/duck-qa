@@ -1,5 +1,6 @@
-export * from './forget-password-form'
-export * from './forget-password-form.dto'
-export * from './forget-password-form.types'
-export * from './forget-password-form.libs'
+import { createFileRoute } from '@tanstack/react-router'
+import { SignupPage } from '~/components/auth/signup'
+
+export const Route = createFileRoute('/auth/signup')({
+  component: SignupPage,
 })
