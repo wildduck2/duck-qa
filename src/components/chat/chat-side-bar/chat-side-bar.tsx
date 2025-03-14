@@ -65,9 +65,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <div className="p-2 flex items-center justify-between">
-          <SidebarTrigger variant="ghost" size="icon">
-            <PanelRight />
-          </SidebarTrigger>
+          <Link to="/" className="mr-4 flex items-center gap-2 lg:mr-6">
+            <Icons.logo className="h-6 w-6" />
+            <span className="hidden font-bold lg:inline-block">duck-qa</span>
+          </Link>
         </div>
       </SidebarHeader>
       <SidebarContent>

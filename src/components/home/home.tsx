@@ -12,11 +12,12 @@ export function Home() {
         <Link
           to="/chat"
           className={cn(
-            buttonVariants({ className: 'px-24 rounded-md font-medium' }),
+            buttonVariants({
+              className: '!px-8 h-[45px] rounded-md font-semibold',
+            }),
           )}
         >
-          start now
-          <ArrowRight />
+          Start now
         </Link>
       </div>
     </main>
