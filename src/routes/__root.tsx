@@ -7,6 +7,7 @@ import {
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import * as React from 'react'
 import { Toaster } from '~/components/ui/sonner'
+import { ThemeProvider } from '~/components/ui/theme-provider'
 import appCss from '~/styles/app.css?url'
 import { seo } from '~/utils/seo'
 
@@ -75,7 +76,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <TanStackRouterDevtools position="bottom-right" />
         <Toaster />
         <Scripts />
