@@ -16,6 +16,7 @@ import { Route as ChatImport } from './routes/chat'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthSignupImport } from './routes/auth/signup'
 import { Route as AuthSigninImport } from './routes/auth/signin'
+import { Route as AuthForgotPasswordImport } from './routes/auth/forgot-password'
 import { Route as AuthForgetPasswordImport } from './routes/auth/forget-password'
 
 // Create/Update Routes
@@ -47,6 +48,12 @@ const AuthSignupRoute = AuthSignupImport.update({
 const AuthSigninRoute = AuthSigninImport.update({
   id: '/auth/signin',
   path: '/auth/signin',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
+  id: '/auth/forgot-password',
+  path: '/auth/forgot-password',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthForgetPasswordImport
       parentRoute: typeof rootRoute
     }
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/auth/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/signin': {
       id: '/auth/signin'
       path: '/auth/signin'
@@ -112,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
 }
@@ -121,6 +136,7 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
 }
@@ -131,6 +147,7 @@ export interface FileRoutesById {
   '/chat': typeof ChatRoute
   '/terms': typeof TermsRoute
   '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
 }
@@ -142,6 +159,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/terms'
     | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
   fileRoutesByTo: FileRoutesByTo
@@ -150,6 +168,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/terms'
     | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
   id:
@@ -158,6 +177,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/terms'
     | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
   fileRoutesById: FileRoutesById
@@ -168,6 +188,7 @@ export interface RootRouteChildren {
   ChatRoute: typeof ChatRoute
   TermsRoute: typeof TermsRoute
   AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
 }
@@ -177,6 +198,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChatRoute: ChatRoute,
   TermsRoute: TermsRoute,
   AuthForgetPasswordRoute: AuthForgetPasswordRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
 }
@@ -195,6 +217,7 @@ export const routeTree = rootRoute
         "/chat",
         "/terms",
         "/auth/forget-password",
+        "/auth/forgot-password",
         "/auth/signin",
         "/auth/signup"
       ]
@@ -210,6 +233,9 @@ export const routeTree = rootRoute
     },
     "/auth/forget-password": {
       "filePath": "auth/forget-password.tsx"
+    },
+    "/auth/forgot-password": {
+      "filePath": "auth/forgot-password.tsx"
     },
     "/auth/signin": {
       "filePath": "auth/signin.tsx"

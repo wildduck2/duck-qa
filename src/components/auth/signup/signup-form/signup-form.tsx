@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
 import { Github } from 'lucide-react'
@@ -23,16 +21,7 @@ import { cn } from '~/utils/cn'
 import { SignupFormSchema, signupFormSchema } from './signup-form.dto'
 import { submitGihubSingup, submitSignupForm } from './signup-form.libs'
 
-interface SignUpFormProps extends React.ComponentPropsWithoutRef<'div'> {
-  className?: string
-  onSuccess?: () => void
-}
-
-export function SignupForm({
-  className,
-  onSuccess,
-  ...props
-}: SignUpFormProps) {
+export function SignupForm() {
   const form = useForm<SignupFormSchema>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -43,7 +32,7 @@ export function SignupForm({
   })
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-6')}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create a new account</h1>
         <p className="text-balance text-sm text-muted-foreground">
