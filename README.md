@@ -1,5 +1,5 @@
 # @duck-qs
 
 <p align="center">
-  <img src="./public/main.png" alt="duck-qa logo" width="200"/>
+  <img src="./public/main.png" alt="duck-qa logo" width="600"/>
 </p>
