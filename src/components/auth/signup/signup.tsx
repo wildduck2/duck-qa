@@ -1,31 +1,43 @@
+import { Link } from '@tanstack/react-router'
+import { cn } from '~/utils/cn'
+import { buttonVariants } from '~/components/ui/button'
+import { Icons } from '../chat/chat-side-bar/chat-side-bar'
 import { GalleryVerticalEnd } from 'lucide-react'
-import { SignupForm } from './signup-form'
 
-export function SignupPage() {
+export function Header() {
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
-          <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEnd className="size-4" />
-            </div>
-            Acme Inc.
-          </a>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            <SignupForm />
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 max-w-7xl mx-auto mt-14">
+      <div className="container flex h-14 items-center gap-2 md:gap-4 justify-between">
+        <Link to="/" className="flex items-center gap-2 font-semibold">
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <GalleryVerticalEnd className="size-4" />
           </div>
-        </div>
+          duck-qa
+        </Link>
+        <nav className="gap-4 flex items-center">
+          <Link
+            to="/auth/signup"
+            className={cn(
+              buttonVariants({
+                variant: 'secondary',
+                className: '!px-5',
+              }),
+            )}
+          >
+            Signup
+          </Link>
+          <Link
+            to="/auth/signin"
+            className={cn(
+              buttonVariants({
+                className: '!px-5',
+              }),
+            )}
+          >
+            Signin
+          </Link>
+        </nav>
       </div>
-      <div className="relative hidden bg-muted lg:block">
-        <img
-          src="/placeholder.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
-      </div>
-    </div>
+    </header>
   )
 }
