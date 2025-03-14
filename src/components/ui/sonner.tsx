@@ -65,6 +65,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
+      <Toaster />
     </RootDocument>
   )
 }
@@ -78,7 +79,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <TanStackRouterDevtools position="bottom-right" />
-        <Toaster />
         <Scripts />
       </body>
     </html>
